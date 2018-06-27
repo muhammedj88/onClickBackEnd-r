@@ -28,7 +28,7 @@ public class MilestoneProjectFacedREST extends AbstractFacade<MilestoneProject> 
 	public MilestoneProjectFacedREST() {
 		super(MilestoneProject.class);
 	}	
-	@PUT 
+	@PUT   
 	@Override
 	@Consumes({ "application/xml", "application/json" })
 	public Response edit(MilestoneProject entity) {
