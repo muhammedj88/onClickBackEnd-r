@@ -1,6 +1,6 @@
 package config;
 
-import java.util.Arrays;
+/*import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,4 +23,4 @@ public class CorsConfig {
 
       return new CorsFilter(source);
   }
-}
+}*/

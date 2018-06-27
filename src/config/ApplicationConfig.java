@@ -10,6 +10,6 @@ public class ApplicationConfig extends ResourceConfig {
 		register(da.TaskFacedREST.class);
 		register(da.TaskProjectFacedREST.class);
 		register(da.MilestoneFacedREST.class);
-		register(config.CorsConfig.class);
+		// register(config.CorsConfig.class);
 	}
 }
