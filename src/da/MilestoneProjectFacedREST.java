@@ -15,11 +15,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import model.MilestoneProject;
 import model.Project;
 import model.Task;
 import model.TaskProject;
@@ -27,42 +27,28 @@ import model.TaskProject;
 @javax.inject.Singleton
 @Path("taskProject")
 @Produces({ "application/json" })
-public class TaskProjectFacedREST extends AbstractFacade<TaskProject> {
+public class MilestoneProjectFacedREST extends AbstractFacade<MilestoneProject> {
 	private EntityManager em;
 
-	public TaskProjectFacedREST() {
-		super(TaskProject.class);
+	public MilestoneProjectFacedREST() {
+		super(MilestoneProject.class);
 	}
 
 	@PUT
-	@Path("status/{id}")
+	@Override
 	@Consumes({ "application/xml", "application/json" })
-	public Response editStatus(@PathParam("id") Integer id) {
-		TaskProject tsk = this.find(id);
-		if(tsk.getStatus() == 1)
-			tsk.setStatus(2);
-		else
-			tsk.setStatus(1);
-		
-		try {
-			if (!getEntityManager().getTransaction().isActive()) {
-				getEntityManager().getTransaction().begin();
-			}
-			
-			getEntityManager().merge(tsk);
-			EntityManagerHelper.commit();
-			return Response.ok().entity("Entity edited successfully").build();
-		} catch (Exception ex) {
-			EntityManagerHelper.rollback();
-			throw new WebApplicationException(ex, Response.Status.NOT_FOUND);
-		}
+	public Response edit(MilestoneProject entity) {
+		// Project p = new Project();
+		// p.setProjectId(26);
+		// entity.setProject(p);
+		return super.edit(entity);
 	}
 	
 	@PUT
 	@Override
 	@Consumes({ "application/xml", "application/json" })
 	@Path("add")
-	public Response create(TaskProject entity) {
+	public Response create(MilestoneProject entity) {
 		return super.create(entity);
 	}
 
@@ -75,21 +61,21 @@ public class TaskProjectFacedREST extends AbstractFacade<TaskProject> {
 	@GET
 	@Path("{id}")
 	@Produces({ "application/json" })
-	public TaskProject find(@PathParam("id") Integer id) {
+	public MilestoneProject find(@PathParam("id") Integer id) {
 		return super.find(id);
 	}
 
 	@GET
 	@Override
 	@Produces({ "application/json" })
-	public List<TaskProject> findAll() {
+	public List<MilestoneProject> findAll() {
 		return super.findAll();
 	}
 
 	@GET
 	@Path("{from}/{to}")
 	@Produces({ "application/json" })
-	public List<TaskProject> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+	public List<MilestoneProject> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
 		return super.findRange(new int[] { from, to });
 	}
 

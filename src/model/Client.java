@@ -27,7 +27,7 @@ public class Client implements Serializable {
 
 	//bi-directional many-to-one association to Project
 	@OneToMany(mappedBy="client")
-	@XmlInverseReference(mappedBy="client")
+	@XmlInverseReference(mappedBy="project")
 	private List<Project> projects;
 
 	public Client() {

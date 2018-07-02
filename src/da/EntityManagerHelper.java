@@ -43,7 +43,7 @@ public class EntityManagerHelper {
     public static void commit() {
     	getEntityManager().getTransaction().commit();
     	closeEntityManager();
-    }  
+    }
     
     public static void rollback() {
     	getEntityManager().getTransaction().rollback();

@@ -27,8 +27,7 @@ public class TaskProject implements Serializable {
 	//bi-directional many-to-one association to Project
 	@ManyToOne
 	@JoinColumn(name="project_id")
-	@XmlInverseReference(mappedBy="project_id")
-
+	@XmlInverseReference(mappedBy="projectid")
 	private Project project;
 
 	//bi-directional many-to-one association to Stakeholder

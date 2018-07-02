@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 
 /**
  * The persistent class for the system_project database table.
@@ -24,6 +26,7 @@ public class SystemProject implements Serializable {
 	//bi-directional many-to-one association to Project
 	@ManyToOne
 	@JoinColumn(name="projects_id")
+	@XmlInverseReference(mappedBy="projects_id")
 	private Project project;
 
 	public SystemProject() {

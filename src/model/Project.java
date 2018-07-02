@@ -19,7 +19,8 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="project_id")
+	@Column(name="project_id", updatable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int projectId;
 
 	@Temporal(TemporalType.DATE)
@@ -36,7 +37,6 @@ public class Project implements Serializable {
 
 	//bi-directional many-to-one association to MilestoneProject
 	@OneToMany(mappedBy="project")
-	@XmlInverseReference(mappedBy="project")
 	private List<MilestoneProject> milestoneProjects;
 
 	//bi-directional many-to-one association to Client
@@ -46,7 +46,6 @@ public class Project implements Serializable {
 
 	//bi-directional many-to-one association to SystemProject
 	@OneToMany(mappedBy="project")
-	@XmlInverseReference(mappedBy="project")
 	private List<SystemProject> systemProjects;
 
 	//bi-directional many-to-one association to TaskProject
