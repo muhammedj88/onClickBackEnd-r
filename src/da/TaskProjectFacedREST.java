@@ -37,7 +37,7 @@ public class TaskProjectFacedREST extends AbstractFacade<TaskProject> {
 	@PUT
 	@Path("status/{id}")
 	@Consumes({ "application/xml", "application/json" })
-	public Response editStatus(@PathParam("id") Integer id) {
+	public TaskProject editStatus(@PathParam("id") Integer id) {
 		TaskProject tsk = this.find(id);
 		if(tsk.getStatus() == 1)
 			tsk.setStatus(2);
@@ -51,7 +51,7 @@ public class TaskProjectFacedREST extends AbstractFacade<TaskProject> {
 			
 			getEntityManager().merge(tsk);
 			EntityManagerHelper.commit();
-			return Response.ok().entity("Entity edited successfully").build();
+			return tsk;
 		} catch (Exception ex) {
 			EntityManagerHelper.rollback();
 			throw new WebApplicationException(ex, Response.Status.NOT_FOUND);

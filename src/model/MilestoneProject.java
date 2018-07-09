@@ -29,7 +29,7 @@ public class MilestoneProject implements Serializable {
 	//bi-directional many-to-one association to Milestone
 	@ManyToOne
 	@JoinColumn(name="milestone_id")
-	@XmlInverseReference(mappedBy="milestone")
+	// @XmlInverseReference(mappedBy="milestone")
 	private Milestone milestone;
 
 	//bi-directional many-to-one association to Project
