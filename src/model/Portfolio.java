@@ -2,6 +2,9 @@
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 import java.util.List;
 
 
@@ -22,6 +25,7 @@ public class Portfolio implements Serializable {
 
 	//bi-directional many-to-one association to Client
 	@OneToMany(mappedBy="portfolio")
+	@XmlInverseReference(mappedBy="client")
 	private List<Client> clients;
 
 	public Portfolio() {
