@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+
 
 /**
  * The persistent class for the client database table.
@@ -28,6 +30,10 @@ public class Client implements Serializable {
 	@JoinColumn(name="portfolio_id")
 	private Portfolio portfolio;
 
+	
+	//bi-directional many-to-one association to Project
+	@OneToMany(mappedBy="client")
+	@XmlInverseReference(mappedBy="project")
 	private List<Project> projects;
 	
 	public Client() {
