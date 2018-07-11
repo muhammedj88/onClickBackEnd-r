@@ -1,11 +1,8 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.*;
-
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
+import java.util.List;
 
 
 /**
@@ -24,13 +21,7 @@ public class Portfolio implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Client
-	@ManyToOne
-	@JoinColumn(name="portfolio_id", referencedColumnName="portfolio_id")
-	private Client client;
-	
-	//bi-directional many-to-one association to Task
-	@OneToMany(mappedBy="client")
-	@XmlInverseReference(mappedBy="client")
+	@OneToMany(mappedBy="portfolio")
 	private List<Client> clients;
 
 	public Portfolio() {
@@ -52,25 +43,10 @@ public class Portfolio implements Serializable {
 		this.name = name;
 	}
 
-	public Client getClient() {
-		return this.client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-	
-	
-	/**
-	 * @return the clients
-	 */
 	public List<Client> getClients() {
-		return clients;
+		return this.clients;
 	}
 
-	/**
-	 * @param clients the clients to set
-	 */
 	public void setClients(List<Client> clients) {
 		this.clients = clients;
 	}
@@ -81,9 +57,12 @@ public class Portfolio implements Serializable {
 
 		return client;
 	}
-	
-	
-	
-	
+
+	public Client removeClient(Client client) {
+		getClients().remove(client);
+		client.setPortfolio(null);
+
+		return client;
+	}
 
 }

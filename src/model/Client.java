@@ -1,8 +1,9 @@
 package model;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.*;
 
 
 /**
@@ -10,7 +11,6 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="client")
 @NamedQuery(name="Client.findAll", query="SELECT c FROM Client c")
 public class Client implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,10 +24,12 @@ public class Client implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Portfolio
-	@OneToMany(mappedBy="client")
-	private List<Portfolio> portfolios;
-	private List<Project> projects;
+	@ManyToOne
+	@JoinColumn(name="portfolio_id")
+	private Portfolio portfolio;
 
+	private List<Project> projects;
+	
 	public Client() {
 	}
 
@@ -54,6 +56,14 @@ public class Client implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Portfolio getPortfolio() {
+		return this.portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
 	
 
 	public List<Project> getProjects() {
@@ -77,23 +87,5 @@ public class Client implements Serializable {
 
 		return project;
 	}
-
-	public List<Portfolio> getPortfolios() {
-		return this.portfolios;
-	}
-
-	public void setPortfolios(List<Portfolio> portfolios) {
-		this.portfolios = portfolios;
-	}
-
-	public Portfolio addPortfolio(Portfolio portfolio) {
-		getPortfolios().add(portfolio);
-		portfolio.setClient(this);
-
-		return portfolio;
-	}
-	
-
-
 
 }
