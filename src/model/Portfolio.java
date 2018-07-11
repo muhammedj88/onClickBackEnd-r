@@ -1,4 +1,4 @@
-package model;
+ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -15,7 +15,7 @@ public class Portfolio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="portfolio_id")
+	@Column(name="portfolio_id") 
 	private int portfolioId;
 
 	private String name;
