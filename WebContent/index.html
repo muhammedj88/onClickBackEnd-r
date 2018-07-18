@@ -3,8 +3,42 @@
 <head>
 <meta charset="windows-1255">
 <title>Project On click</title>
+<link rel="stylesheet" href="css/bootstrap.min.css"
+	integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+	crossorigin="anonymous">
+<script src="js/bootstrap.min.js"
+	integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
+	crossorigin="anonymous"></script>
 </head>
 <body>
-<h1>the project is running</h1>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-3">
+				<form role="form">
+					<div class="form-group">
+						<label for="driver">Driver:</label> <input type="text"
+							class="form-control" id="driver">
+					</div>
+					<div class="form-group">
+						<label for="url">URL:</label> <input type="text"
+							class="form-control" id="url">
+					</div>
+					<div class="form-group">
+						<label for="user">User:</label> <input type="text"
+							class="form-control" id="user">
+					</div>
+
+					<div class="form-group">
+						<label for="pwd">Password:</label> <input type="password"
+							class="form-control" id="pwd">
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox"> Remember me</label>
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

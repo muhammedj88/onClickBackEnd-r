@@ -3,10 +3,6 @@ package model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
-
-import java.util.List;
-
 
 /**
  * The persistent class for the client database table.
@@ -25,10 +21,10 @@ public class Client implements Serializable {
 
 	private String name;
 
-	//bi-directional many-to-one association to Project
-	@OneToMany(mappedBy="client")
-	@XmlInverseReference(mappedBy="project")
-	private List<Project> projects;
+	//bi-directional many-to-one association to Portfolio
+	@ManyToOne
+	@JoinColumn(name="portfolio_id")
+	private Portfolio portfolio;
 
 	public Client() {
 	}
@@ -57,26 +53,12 @@ public class Client implements Serializable {
 		this.name = name;
 	}
 
-	public List<Project> getProjects() {
-		return this.projects;
+	public Portfolio getPortfolio() {
+		return this.portfolio;
 	}
 
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
-	}
-
-	public Project addProject(Project project) {
-		getProjects().add(project);
-		project.setClient(this);
-
-		return project;
-	}
-
-	public Project removeProject(Project project) {
-		getProjects().remove(project);
-		project.setClient(null);
-
-		return project;
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
 	}
 
 }
