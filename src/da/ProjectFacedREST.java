@@ -1,6 +1,7 @@
 
 package da;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Access;
@@ -27,6 +28,8 @@ import model.Task;
 import model.TaskProject;
 
 import org.joda.time.*;
+
+import com.sun.tools.xjc.reader.gbind.Element;
 
 @javax.inject.Singleton
 @Path("project")
@@ -55,16 +58,16 @@ public class ProjectFacedREST extends AbstractFacade<Project> {
 			}
 			getEntityManager().persist(project);
 			getEntityManager().flush();
-			
-			EntityManagerHelper.commit();
+			System.out.print("id - " + project.getProjectId());
+
 			
 			DateTime dateTime1 = new DateTime(project.getStartDate());
 			DateTime dateTime2 = new DateTime(project.getEndDate());
 			int weeksNumber = Weeks.weeksBetween(dateTime1,dateTime2).getWeeks();
 			
 			TaskFacedREST tasksRest = new TaskFacedREST();
-			TaskProjectFacedREST taskProjrctRest = new TaskProjectFacedREST();
 			List<Task> tasks = tasksRest.findAll();
+			List<TaskProject> tasksProject = new ArrayList<TaskProject>();
 			System.out.println(tasks.size());
 			for (Task task : tasks) {
 				if(task.getTaskType().equals(project.getType())) {
@@ -77,9 +80,13 @@ public class ProjectFacedREST extends AbstractFacade<Project> {
 							(((task.getMilestone().getStartPercentage()/100.0)) + 
 							((task.getStagePercentage()/100.0)*(task.getMilestone().getPercentage()/100.0)))
 							 * (double)weeksNumber));
-					taskProjrctRest.create(tp);
+					//taskProjrctRest.create(tp);
+					tasksProject.add(tp);
 				}
 			}
+			project.setTaskProjects(tasksProject);
+			EntityManagerHelper.commit();
+			
 			
 			MilestoneFacedREST milestoneRest = new MilestoneFacedREST();
 			List<Milestone> milestones = milestoneRest.findAll();
@@ -94,7 +101,8 @@ public class ProjectFacedREST extends AbstractFacade<Project> {
 				milestoneProjecrRest.create(mp);
 			}
 			
-			return project;
+			
+			return find(project.getProjectId());
 		} catch (Exception ex) {
 			EntityManagerHelper.rollback();
 			throw new WebApplicationException(ex, Response.Status.BAD_REQUEST);
@@ -112,7 +120,7 @@ public class ProjectFacedREST extends AbstractFacade<Project> {
 	@Path("{id}")
 	@Produces({ "application/json" })
 	public Project find(@PathParam("id") Integer id) {
-		return super.find(id);
+		return super.find(id); 
 	}
 
 	@GET

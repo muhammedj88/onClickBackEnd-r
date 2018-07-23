@@ -36,7 +36,7 @@ public class Project implements Serializable {
 	private String type;
 
 	//bi-directional many-to-one association to MilestoneProject
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<MilestoneProject> milestoneProjects;
 
 	//bi-directional many-to-one association to Client
@@ -45,11 +45,11 @@ public class Project implements Serializable {
 	private Client client;
 
 	//bi-directional many-to-one association to SystemProject
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<SystemProject> systemProjects;
 
 	//bi-directional many-to-one association to TaskProject
-	@OneToMany(mappedBy="project")
+	@OneToMany(mappedBy="project", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<TaskProject> taskProjects;
 
 	public Project() {
